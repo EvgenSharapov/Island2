@@ -25,6 +25,8 @@ public class Application extends Game{
         controller.execute();
         width=controller.getA();
         height=controller.getA();
+        population=controller.getB();
+
 
 
         animal.add("\uD83D\uDC3A");
@@ -42,6 +44,7 @@ public class Application extends Game{
         animal.add("\uD83E\uDD86");
         animal.add("\uD83D\uDC01");
         animal.add("\uD83D\uDC1C");
+        animal.add("🐛");
 
         showGrid(true);
         setScreenSize(width, height);
