@@ -1,19 +1,31 @@
-package org.example;
+package myapp;
 
+import com.javarush.engine.cell.Game;
+import myapp.controller.IslandController;
+import myapp.model.IslandModel;
+import myapp.view.IslandView;
 import com.javarush.engine.cell.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Island extends Game {
-    public static final int WIDTH = 5;
-    public static final int HEIGHT = 5;
-    private static final List<String>animal = new ArrayList<>();
+public class Application extends Game{
+    private int population;
+    private int  width;
+    private int height;
+    private static final List<String> animal = new ArrayList<>();
+
 
 
     @Override
     public void initialize() {
+        IslandModel model = new IslandModel();
+        IslandView view = new IslandView();
+        IslandController controller = new IslandController(model, view);
+        controller.execute();
+        width=controller.getA();
+        height=controller.getA();
+
 
         animal.add("\uD83D\uDC3A");
         animal.add("\uD83D\uDC3B");
@@ -32,7 +44,7 @@ public class Island extends Game {
         animal.add("\uD83D\uDC1C");
 
         showGrid(true);
-        setScreenSize(WIDTH, HEIGHT);
+        setScreenSize(width, height);
         createGame();
 
 
@@ -51,8 +63,8 @@ public class Island extends Game {
     }
 
     private void drawField() {
-        for (int x = 0; x < WIDTH; x++) {
-            for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
                 setCellColor(x, y, Color.AZURE);
                 int randomIndex = ThreadLocalRandom.current().nextInt(animal.size());
                 String name=animal.get(randomIndex);
@@ -66,11 +78,13 @@ public class Island extends Game {
 
     @Override
     public void setCellColor(int x, int y, Color color) {
-        if (x > WIDTH - 1 || x < 0 || y < 0 || y > HEIGHT - 1) {
+        if (x > width - 1 || x < 0 || y < 0 || y > height - 1) {
             return;
         }
         super.setCellColor(x, y, color);
     }
+
+
 
 
 }
